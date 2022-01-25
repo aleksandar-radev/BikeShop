@@ -23,6 +23,11 @@ namespace BikeShop.Controllers
             return View();
         }
 
+        public IActionResult Dick()
+        {
+            return View(443);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
