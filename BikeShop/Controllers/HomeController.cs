@@ -1,4 +1,6 @@
-﻿using BikeShop.Models;
+﻿using BikeShop.Data;
+using BikeShop.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,25 +9,33 @@ namespace BikeShop.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private  readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
         public IActionResult Index()
         {
+            IdentityUser user = new IdentityUser();
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult TopOffers(int id)
         {
             return View();
         }
 
-        public IActionResult Dick()
+        public IActionResult News()
         {
-            return View(443);
+            return View();
+        }
+
+        public IActionResult Contacts()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
