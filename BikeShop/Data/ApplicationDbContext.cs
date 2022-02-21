@@ -14,27 +14,10 @@ namespace BikeShop.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .Property(e => e.FirstName)
-                .HasMaxLength(250);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .Property(e => e.LastName)
-                .HasMaxLength(250);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .Property(e => e.MiddleName)
-                .HasMaxLength(250);
-
-            modelBuilder.Entity<ApplicationUser>()
-                .Property(e => e.Egn)
-                .HasMaxLength(10);
 
         }
 
-        public DbSet<BikeCategories> bikeCategories { get; set; }
+        public DbSet<Order> Order { get; set; }
     }
 }
