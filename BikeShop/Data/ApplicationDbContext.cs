@@ -15,9 +15,22 @@ namespace BikeShop.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Brand>().HasData(
+                new Brand { Id = 1, Name = "Def", CreatedDate = DateTime.Now, Product = { } }
+            );
+
+            //Seed(modelBuilder);
 
         }
 
-        public DbSet<Order> Order { get; set; }
+        //public DbSet<Order> Order { get; set; }
+        //public DbSet<Brand> Brand { get; set; }
+
+        //private void Seed(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Brand>().HasData(
+        //        new Brand { Id = 1, Name = "Def", CreatedDate = DateTime.Now, Product = { } }
+        //    );
+        //}
     }
 }
