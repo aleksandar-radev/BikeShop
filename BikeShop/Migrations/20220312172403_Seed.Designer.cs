@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BikeShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220305153905_init")]
-    partial class init
+    [Migration("20220312172403_Seed")]
+    partial class Seed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -114,12 +114,19 @@ namespace BikeShop.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Brand");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 3, 12, 19, 24, 3, 299, DateTimeKind.Local).AddTicks(1255),
+                            Name = "Def"
+                        });
                 });
 
             modelBuilder.Entity("BikeShop.Models.Order", b =>
@@ -130,7 +137,10 @@ namespace BikeShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("BuyerId")
+                    b.Property<int>("BuyerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BuyerId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -141,7 +151,7 @@ namespace BikeShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuyerId");
+                    b.HasIndex("BuyerId1");
 
                     b.ToTable("Order");
                 });
@@ -154,7 +164,7 @@ namespace BikeShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("BrandId")
+                    b.Property<int>("BrandId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -166,6 +176,9 @@ namespace BikeShop.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductSupplyId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
@@ -174,6 +187,26 @@ namespace BikeShop.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("Product");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BrandId = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 0,
+                            ProductSupplyId = 0,
+                            Size = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BrandId = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 0,
+                            ProductSupplyId = 0,
+                            Size = 0
+                        });
                 });
 
             modelBuilder.Entity("BikeShop.Models.ProductSupply", b =>
@@ -183,6 +216,9 @@ namespace BikeShop.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -348,7 +384,7 @@ namespace BikeShop.Migrations
                 {
                     b.HasOne("BikeShop.Models.ApplicationUser", "Buyer")
                         .WithMany()
-                        .HasForeignKey("BuyerId");
+                        .HasForeignKey("BuyerId1");
 
                     b.Navigation("Buyer");
                 });
@@ -357,7 +393,9 @@ namespace BikeShop.Migrations
                 {
                     b.HasOne("BikeShop.Models.Brand", "Brand")
                         .WithMany("Product")
-                        .HasForeignKey("BrandId");
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Brand");
                 });

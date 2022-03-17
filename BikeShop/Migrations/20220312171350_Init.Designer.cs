@@ -4,6 +4,7 @@ using BikeShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BikeShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220312171350_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,14 +119,6 @@ namespace BikeShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brand");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(2022, 3, 12, 19, 24, 3, 299, DateTimeKind.Local).AddTicks(1255),
-                            Name = "Def"
-                        });
                 });
 
             modelBuilder.Entity("BikeShop.Models.Order", b =>
@@ -185,26 +179,6 @@ namespace BikeShop.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("Product");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BrandId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Price = 0,
-                            ProductSupplyId = 0,
-                            Size = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BrandId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Price = 0,
-                            ProductSupplyId = 0,
-                            Size = 0
-                        });
                 });
 
             modelBuilder.Entity("BikeShop.Models.ProductSupply", b =>
