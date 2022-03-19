@@ -178,8 +178,7 @@ namespace BikeShop.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BuyerId = table.Column<int>(type: "int", nullable: false),
-                    BuyerId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BuyerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -187,8 +186,8 @@ namespace BikeShop.Migrations
                 {
                     table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Order_AspNetUsers_BuyerId1",
-                        column: x => x.BuyerId1,
+                        name: "FK_Order_AspNetUsers_BuyerId",
+                        column: x => x.BuyerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -203,7 +202,6 @@ namespace BikeShop.Migrations
                     Size = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
                     PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProductSupplyId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -245,7 +243,8 @@ namespace BikeShop.Migrations
                 name: "ProductSupply",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false)
@@ -254,8 +253,8 @@ namespace BikeShop.Migrations
                 {
                     table.PrimaryKey("PK_ProductSupply", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductSupply_Product_Id",
-                        column: x => x.Id,
+                        name: "FK_ProductSupply_Product_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -301,9 +300,9 @@ namespace BikeShop.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_BuyerId1",
+                name: "IX_Order_BuyerId",
                 table: "Order",
-                column: "BuyerId1");
+                column: "BuyerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderProduct_ProductsId",
@@ -314,6 +313,12 @@ namespace BikeShop.Migrations
                 name: "IX_Product_BrandId",
                 table: "Product",
                 column: "BrandId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductSupply_ProductId",
+                table: "ProductSupply",
+                column: "ProductId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

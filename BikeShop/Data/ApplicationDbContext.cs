@@ -20,7 +20,7 @@ namespace BikeShop.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            Seed(modelBuilder);
+            //Seed(modelBuilder);
         }
 
         public DbSet<Order> Order { get; set; }
@@ -28,6 +28,7 @@ namespace BikeShop.Data
 
         private void Seed(ModelBuilder modelBuilder)
         {
+            //UserRoles role = new UserRoles { Id = 1, Name = "Admin" };
             Brand brand = new Brand { Id = 1, Name = "Def", CreatedDate = DateTime.Now };
             modelBuilder.Entity<Brand>().HasData(
                 brand

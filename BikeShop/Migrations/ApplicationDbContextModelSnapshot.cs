@@ -117,14 +117,6 @@ namespace BikeShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brand");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(2022, 3, 12, 19, 24, 3, 299, DateTimeKind.Local).AddTicks(1255),
-                            Name = "Def"
-                        });
                 });
 
             modelBuilder.Entity("BikeShop.Models.Order", b =>
@@ -135,10 +127,7 @@ namespace BikeShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BuyerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BuyerId1")
+                    b.Property<string>("BuyerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -149,7 +138,7 @@ namespace BikeShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuyerId1");
+                    b.HasIndex("BuyerId");
 
                     b.ToTable("Order");
                 });
@@ -174,9 +163,6 @@ namespace BikeShop.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductSupplyId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
@@ -185,32 +171,15 @@ namespace BikeShop.Migrations
                     b.HasIndex("BrandId");
 
                     b.ToTable("Product");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BrandId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Price = 0,
-                            ProductSupplyId = 0,
-                            Size = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BrandId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Price = 0,
-                            ProductSupplyId = 0,
-                            Size = 0
-                        });
                 });
 
             modelBuilder.Entity("BikeShop.Models.ProductSupply", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -222,6 +191,9 @@ namespace BikeShop.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("ProductSupply");
                 });
@@ -382,7 +354,7 @@ namespace BikeShop.Migrations
                 {
                     b.HasOne("BikeShop.Models.ApplicationUser", "Buyer")
                         .WithMany()
-                        .HasForeignKey("BuyerId1");
+                        .HasForeignKey("BuyerId");
 
                     b.Navigation("Buyer");
                 });
@@ -402,7 +374,7 @@ namespace BikeShop.Migrations
                 {
                     b.HasOne("BikeShop.Models.Product", "Product")
                         .WithOne("ProductSupply")
-                        .HasForeignKey("BikeShop.Models.ProductSupply", "Id")
+                        .HasForeignKey("BikeShop.Models.ProductSupply", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

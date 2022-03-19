@@ -8,6 +8,7 @@ namespace BikeShop.Models
         public int Id { get; set; }
         public int BrandId { get; set; }
         public Brand? Brand { get; set; }
+        [Range(0, int.MaxValue)]
         public int Size { get; set; }
         public int Price { get; set; }
         public string? PhotoUrl { get; set; }

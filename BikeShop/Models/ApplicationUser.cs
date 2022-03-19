@@ -10,5 +10,10 @@ namespace BikeShop.Models
         public string? LastName { get; set; }
         [MaxLength(10)]
         public string? Egn { get; set; }
+
+        public void SetFirstName()
+        {
+            FirstName = FirstName ?? string.Empty;
+        }
     }
 }
