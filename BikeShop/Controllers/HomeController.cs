@@ -1,5 +1,6 @@
 ﻿using BikeShop.Data;
 using BikeShop.Models;
+using BikeShop.Views.Home;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -20,7 +21,9 @@ namespace BikeShop.Controllers
         public IActionResult Index()
         {
             IdentityUser user = new IdentityUser();
-            return View();
+            IndexModel mod = new BikeShop.Views.Home.IndexModel("EAT DICK FUCKING C#");
+            //mod.IndexName = ;
+            return View(mod);
         }
 
         public IActionResult TopOffers(int id)

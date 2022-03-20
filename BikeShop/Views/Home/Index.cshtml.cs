@@ -1,17 +1,18 @@
-﻿using BikeShop.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace BikeShop.Views.Home
 {
-    public class Index
+    public class IndexModel : PageModel
     {
-        public UserManager<ApplicationUser> UserManager { get; set; }
-        public ApplicationUser User { get; set; }
-        public Index(UserManager<ApplicationUser> _userManager)
+        public string IndexName { get; set; }
+        public IndexModel(string name)
         {
-            UserManager = _userManager;
-            Task<ApplicationUser> task = UserManager.FindByNameAsync("admin@example.com");
-            User = task.Result;
-            Console.WriteLine('a');
+            IndexName = name;
+        }
+
+        public void OnGet()
+        {
+
         }
     }
 }
