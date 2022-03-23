@@ -21,8 +21,7 @@ namespace BikeShop.Controllers
         public IActionResult Index()
         {
             IdentityUser user = new IdentityUser();
-            IndexModel mod = new BikeShop.Views.Home.IndexModel("EAT DICK FUCKING C#");
-            //mod.IndexName = ;
+            IndexModel mod = new BikeShop.Views.Home.IndexModel("");
             return View(mod);
         }
 

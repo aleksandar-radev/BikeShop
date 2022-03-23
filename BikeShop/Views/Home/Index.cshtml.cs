@@ -7,7 +7,7 @@ namespace BikeShop.Views.Home
         public string IndexName { get; set; }
         public IndexModel(string name)
         {
-            IndexName = name;
+            IndexName = "asdfasdf";
         }
 
         public void OnGet()

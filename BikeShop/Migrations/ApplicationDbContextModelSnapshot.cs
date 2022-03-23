@@ -116,7 +116,7 @@ namespace BikeShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brand", (string)null);
                 });
 
             modelBuilder.Entity("BikeShop.Models.Order", b =>
@@ -140,7 +140,7 @@ namespace BikeShop.Migrations
 
                     b.HasIndex("BuyerId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("BikeShop.Models.Product", b =>
@@ -170,7 +170,7 @@ namespace BikeShop.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("BikeShop.Models.ProductSupply", b =>
@@ -195,7 +195,7 @@ namespace BikeShop.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("ProductSupply");
+                    b.ToTable("ProductSupply", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -347,7 +347,7 @@ namespace BikeShop.Migrations
 
                     b.HasIndex("ProductsId");
 
-                    b.ToTable("OrderProduct");
+                    b.ToTable("OrderProduct", (string)null);
                 });
 
             modelBuilder.Entity("BikeShop.Models.Order", b =>
