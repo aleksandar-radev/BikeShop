@@ -179,7 +179,6 @@ namespace BikeShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BuyerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -219,21 +218,24 @@ namespace BikeShop.Migrations
                 name: "OrderProduct",
                 columns: table => new
                 {
-                    OrdersId = table.Column<int>(type: "int", nullable: false),
-                    ProductsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProduct", x => new { x.OrdersId, x.ProductsId });
+                    table.PrimaryKey("PK_OrderProduct", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderProduct_Order_OrdersId",
-                        column: x => x.OrdersId,
+                        name: "FK_OrderProduct_Order_OrderId",
+                        column: x => x.OrderId,
                         principalTable: "Order",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderProduct_Product_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_OrderProduct_Product_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -305,9 +307,14 @@ namespace BikeShop.Migrations
                 column: "BuyerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderProduct_ProductsId",
+                name: "IX_OrderProduct_OrderId",
                 table: "OrderProduct",
-                column: "ProductsId");
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderProduct_ProductId",
+                table: "OrderProduct",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_BrandId",

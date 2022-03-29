@@ -14,7 +14,7 @@ namespace BikeShop.Models
         public string? PhotoUrl { get; set; }
         public ProductSupply? ProductSupply { get; set; }
         public DateTime CreatedDate { get; set; }
-        public ICollection<Order>? Orders { get; set; }
+        public ICollection<OrderProduct>? Orders { get; set; }
 
 
     }

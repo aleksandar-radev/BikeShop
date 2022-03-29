@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BikeShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220319124155_Init")]
+    [Migration("20220329154413_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,14 +135,37 @@ namespace BikeShop.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BuyerId");
 
                     b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("BikeShop.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("BikeShop.Models.Product", b =>
@@ -337,21 +360,6 @@ namespace BikeShop.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<int>("OrdersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrdersId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OrderProduct");
-                });
-
             modelBuilder.Entity("BikeShop.Models.Order", b =>
                 {
                     b.HasOne("BikeShop.Models.ApplicationUser", "Buyer")
@@ -359,6 +367,25 @@ namespace BikeShop.Migrations
                         .HasForeignKey("BuyerId");
 
                     b.Navigation("Buyer");
+                });
+
+            modelBuilder.Entity("BikeShop.Models.OrderProduct", b =>
+                {
+                    b.HasOne("BikeShop.Models.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BikeShop.Models.Product", "Product")
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BikeShop.Models.Product", b =>
@@ -434,28 +461,20 @@ namespace BikeShop.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("BikeShop.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BikeShop.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BikeShop.Models.Brand", b =>
                 {
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("BikeShop.Models.Order", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("BikeShop.Models.Product", b =>
                 {
+                    b.Navigation("Orders");
+
                     b.Navigation("ProductSupply");
                 });
 #pragma warning restore 612, 618

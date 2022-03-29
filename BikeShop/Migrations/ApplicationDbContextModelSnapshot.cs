@@ -116,7 +116,7 @@ namespace BikeShop.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brand", (string)null);
+                    b.ToTable("Brand");
                 });
 
             modelBuilder.Entity("BikeShop.Models.Order", b =>
@@ -133,14 +133,37 @@ namespace BikeShop.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuyerId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("BikeShop.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BuyerId");
+                    b.HasIndex("OrderId");
 
-                    b.ToTable("Order", (string)null);
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
                 });
 
             modelBuilder.Entity("BikeShop.Models.Product", b =>
@@ -170,7 +193,7 @@ namespace BikeShop.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("BikeShop.Models.ProductSupply", b =>
@@ -195,7 +218,7 @@ namespace BikeShop.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("ProductSupply", (string)null);
+                    b.ToTable("ProductSupply");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -335,21 +358,6 @@ namespace BikeShop.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<int>("OrdersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrdersId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OrderProduct", (string)null);
-                });
-
             modelBuilder.Entity("BikeShop.Models.Order", b =>
                 {
                     b.HasOne("BikeShop.Models.ApplicationUser", "Buyer")
@@ -357,6 +365,25 @@ namespace BikeShop.Migrations
                         .HasForeignKey("BuyerId");
 
                     b.Navigation("Buyer");
+                });
+
+            modelBuilder.Entity("BikeShop.Models.OrderProduct", b =>
+                {
+                    b.HasOne("BikeShop.Models.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BikeShop.Models.Product", "Product")
+                        .WithMany("Orders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("BikeShop.Models.Product", b =>
@@ -432,28 +459,20 @@ namespace BikeShop.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("BikeShop.Models.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BikeShop.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BikeShop.Models.Brand", b =>
                 {
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("BikeShop.Models.Order", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("BikeShop.Models.Product", b =>
                 {
+                    b.Navigation("Orders");
+
                     b.Navigation("ProductSupply");
                 });
 #pragma warning restore 612, 618
