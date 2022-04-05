@@ -32,6 +32,9 @@ namespace BikeShop.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public string Username { get; set; }
         public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string Egn { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -60,22 +63,35 @@ namespace BikeShop.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
+
+            [Display(Name = "Middle Name")]
+            public string MiddleName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Egn")]
+            public string Egn { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var FirstName = await _userManager.FindByIdAsync(user.Id);
+            var User = await _userManager.FindByIdAsync(user.Id);
 
             Username = userName;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                FirstName = FirstName.FirstName
+                FirstName = User.FirstName,
+                MiddleName = User.MiddleName,
+                LastName = User.LastName,
+                Egn = User.Egn
             };
         }
 
@@ -116,7 +132,10 @@ namespace BikeShop.Areas.Identity.Pages.Account.Manage
                 }
             }
             user.FirstName = Input.FirstName;
-            
+            user.MiddleName = Input.MiddleName;
+            user.LastName = Input.LastName;
+            user.Egn = Input.Egn;
+
             await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
