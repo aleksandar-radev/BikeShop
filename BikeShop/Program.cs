@@ -1,3 +1,4 @@
+using BikeShop;
 using BikeShop.Data;
 using BikeShop.Models;
 using Microsoft.AspNetCore.Identity;

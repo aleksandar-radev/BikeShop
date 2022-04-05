@@ -4,6 +4,7 @@ using BikeShop.Views.Home;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeShop.Controllers
 {
@@ -25,12 +26,15 @@ namespace BikeShop.Controllers
             return View(mod);
         }
 
-        public IActionResult TopOffers(int id)
+        public IActionResult TopOffers()
         {
-            return View();
+            List<Product> products = _db.Product.Include(product => product.Brand).ToList();
+            TopOffers m = new TopOffers(products);
+
+            return View(m);
         }
 
-        public IActionResult News()
+        public IActionResult News(int id)
         {
             return View();
         }

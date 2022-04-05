@@ -1,9 +1,11 @@
-﻿@page
+﻿
 @model BikeShop.Views.Home.IndexModel
 @{
-    @*ViewData["Title"] = "asss";*@
+    ViewData["Title"] = "Welcome to the bike shop";
 }
-@Html.DisplayFor(model => model.IndexName)
-<h1>asdf</h1>
 
-@*https://stackoverflow.com/questions/50785009/how-to-seed-an-admin-user-in-ef-core-2-1-0*@
+<h1>Welcome to our shop!</h1>
+
+<p>check out out our offers: <a href="/Home/TopOffers">HERE</a></p>
+<img src="/images/bike.jpg" style="width: 100%;"/>
+

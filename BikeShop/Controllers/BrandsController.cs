@@ -8,29 +8,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BikeShop.Data;
 using BikeShop.Models;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace BikeShop.Controllers
 {
-    public class ProductsController : Controller
+    public class BrandsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ProductsController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
+        public BrandsController(ApplicationDbContext context)
         {
-            _hostingEnvironment = hostingEnvironment;
             _context = context;
         }
 
-        // GET: Products
+        // GET: Brands
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Product.Include(p => p.Brand);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Brand.ToListAsync());
         }
 
-        // GET: Products/Details/5
+        // GET: Brands/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,42 +34,39 @@ namespace BikeShop.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Brand)
+            var brand = await _context.Brand
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(brand);
         }
 
-        // GET: Products/Create
+        // GET: Brands/Create
         public IActionResult Create()
         {
-            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Id");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Brands/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BrandId,Size,Price,PhotoUrl,CreatedDate")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,CreatedDate")] Brand brand)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(brand);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Id", product.BrandId);
-            return View(product);
+            return View(brand);
         }
 
-        // GET: Products/Edit/5
+        // GET: Brands/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,49 +74,36 @@ namespace BikeShop.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var brand = await _context.Brand.FindAsync(id);
+            if (brand == null)
             {
                 return NotFound();
             }
-            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Id", product.BrandId);
-            return View(product);
+            return View(brand);
         }
 
-        // POST: Products/Edit/5
+        // POST: Brands/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormFile PhotoUrl, [Bind("Id,BrandId,Size,Price,PhotoUrl,CreatedDate")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CreatedDate")] Brand brand)
         {
-            if (id != product.Id)
+            if (id != brand.Id)
             {
                 return NotFound();
             }
-            product.PhotoUrl = PhotoUrl.FileName;
-
-            string uploads = Path.Combine(Directory.GetCurrentDirectory() , "wwwroot\\images");
-            if (PhotoUrl.Length > 0)
-            {
-                string filePath = Path.Combine(uploads, PhotoUrl.FileName);
-                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await PhotoUrl.CopyToAsync(fileStream);
-                }
-            }
-
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(brand);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!BrandExists(brand.Id))
                     {
                         return NotFound();
                     }
@@ -134,11 +114,10 @@ namespace BikeShop.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandId"] = new SelectList(_context.Brand, "Id", "Id", product.BrandId);
-            return View(product);
+            return View(brand);
         }
 
-        // GET: Products/Delete/5
+        // GET: Brands/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,31 +125,30 @@ namespace BikeShop.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Brand)
+            var brand = await _context.Brand
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(brand);
         }
 
-        // POST: Products/Delete/5
+        // POST: Brands/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
+            var brand = await _context.Brand.FindAsync(id);
+            _context.Brand.Remove(brand);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool BrandExists(int id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Brand.Any(e => e.Id == id);
         }
     }
 }

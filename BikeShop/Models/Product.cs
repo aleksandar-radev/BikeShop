@@ -15,7 +15,5 @@ namespace BikeShop.Models
         public ProductSupply? ProductSupply { get; set; }
         public DateTime CreatedDate { get; set; }
         public ICollection<OrderProduct>? Orders { get; set; }
-
-
     }
 }

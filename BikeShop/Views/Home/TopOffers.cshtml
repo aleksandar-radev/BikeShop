@@ -1,6 +1,29 @@
 ﻿
-@{
-    ViewData["Title"] = "Top offers";
-}
+@model BikeShop.Views.Home.TopOffers
 
-<div>Top offers</div>
+Filter by brand:
+<select name="bikes">
+    <option value="All">All</option>
+    @foreach (var brand in Model.getUniqueBrands())
+    {
+        <option value="@brand.Name">@brand.Name</option>
+    }
+</select>
+<hr />
+<div class="TopOffers">
+    @foreach (var product in Model.getProducts())
+    {
+        <div class="TopOffers__card">
+            <div class="TopOffers__card-picture">
+                <img src="/images/@product.PhotoUrl" class="TopOffers__card-picture-img" />
+            </div>
+            <div class="TopOffers__card-title">@product.Brand.Name</div>
+            <div class="TopOffers__card-info">
+                <div>Size: @product.Size ''</div>
+                <div>Price: @product.Price $</div>  
+            </div>
+            <button class="TopOffers__card-add">Add to cart</button>
+
+        </div>
+    }
+</div>
