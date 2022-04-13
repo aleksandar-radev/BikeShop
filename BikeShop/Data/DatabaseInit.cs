@@ -75,7 +75,7 @@ namespace BikeShop.Data
                 new Brand { Name = "COLNAGO", CreatedDate = DateTime.Now},
                 new Brand { Name = "BICISSUPORT", CreatedDate = DateTime.Now},
                 new Brand { Name = "ANDRIOLO", CreatedDate = DateTime.Now},
-            };
+                };
                 _db.AddRange(brands);
                 _db.SaveChanges();
             }
@@ -120,7 +120,7 @@ namespace BikeShop.Data
                     Random random = new Random();
                     int usersCount = _userManager.Users.Count();
                     ApplicationUser buyer = _userManager.Users.Skip(random.Next(0, usersCount)).First();
-                    Order order = new Order { CreatedDate = DateTime.Now, Buyer = buyer};
+                    Order order = new Order { CreatedDate = DateTime.Now, Buyer = buyer };
                     _db.Add(order);
                     _db.SaveChanges();
                     int q = random.Next(1, 3);

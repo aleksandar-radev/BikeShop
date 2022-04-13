@@ -8,18 +8,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BikeShop.Data;
 using BikeShop.Models;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace BikeShop.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ProductsController(ApplicationDbContext context, IHostingEnvironment hostingEnvironment)
+        public ProductsController(ApplicationDbContext context)
         {
-            _hostingEnvironment = hostingEnvironment;
             _context = context;
         }
 

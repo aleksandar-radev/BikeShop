@@ -21,9 +21,7 @@ namespace BikeShop.Controllers
 
         public IActionResult Index()
         {
-            IdentityUser user = new IdentityUser();
-            IndexModel mod = new BikeShop.Views.Home.IndexModel("");
-            return View(mod);
+            return View();
         }
 
         public IActionResult TopOffers()

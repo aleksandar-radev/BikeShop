@@ -1,9 +1,9 @@
 ﻿
 @model BikeShop.Views.Home.TopOffers
 
-Filter by brand:
+Филтритай по марка:
 <select name="bikes">
-    <option value="All">All</option>
+    <option value="All">Всички</option>
     @foreach (var brand in Model.getUniqueBrands())
     {
         <option value="@brand.Name">@brand.Name</option>
@@ -19,10 +19,10 @@ Filter by brand:
             </div>
             <div class="TopOffers__card-title">@product.Brand.Name</div>
             <div class="TopOffers__card-info">
-                <div>Size: @product.Size ''</div>
-                <div>Price: @product.Price $</div>  
+                <div>Размер: @product.Size ''</div>
+                <div>Цена: @product.Price $</div>  
             </div>
-            <button class="TopOffers__card-add">Add to cart</button>
+            <button class="TopOffers__card-add">Добави в количка</button>
 
         </div>
     }
