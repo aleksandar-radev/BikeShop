@@ -1,0 +1,56 @@
+﻿
+@model CarPartsShop.Views.Home.PartsViewModel
+
+<div class="Offers">
+
+    @foreach (var item in Model.getParts())
+    {
+        <div class="Offers__item">
+            <img src="/images/@item.PhotoUrl" />
+            <div>@item.Name</div>
+            <div>@item.Description</div>
+            @if (item.Stock > 50)
+            {
+                <button>Купи $@item.Price</button>
+            }
+            else
+            {
+                <button disabled> Не е наличен </button>
+            }
+        </div>
+
+    }
+
+
+</div>
+
+
+
+
+
+
+
+<style>
+    .Offers {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .Offers__item {
+        background-color: #c89068;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        padding: 10px;
+        width: 150px;
+    }
+
+
+        .Offers__item > img {
+            margin: auto;
+            height: 100px;
+            width: 100px;
+        }
+</style>

@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "Contacts";
+}
+
+<h1>Контакти</h1>
+
+<div class="containera">
+    <div style="text-align:center">
+        <h2>Свържи се с нас</h2>
+        <p>Остави ни съобщение по долу:</p>
+    </div>
+    <div class="row">
+        <div class="column d-flex align-items-center justify-content-center">
+            <img src="/images/contact.jpg" class="w-100">
+        </div>
+        <div class="column">
+            <form action="/">
+                <label for="fname">Име</label>
+                <input type="text" id="fname" name="firstname" placeholder="Име..">
+                <label for="lname">Фамилия</label>
+                <input type="text" id="lname" name="lastname" placeholder="Фамилия..">
+                <label for="country">Държава</label>
+                <select id="country" name="country">
+                    <option value="bulgaria">България</option>
+                    <option value="canada">Украйна</option>
+                    <option value="usa">Русия</option>
+                </select>
+                <label for="subject">Тема</label>
+                <textarea id="subject" name="subject" placeholder="Напиши нещо.." style="height:170px"></textarea>
+                <input type="submit" value="Изпрати">
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Style inputs */
+    input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+
+    /* Style the container/contact section */
+    .containera {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 10px;
+    }
+
+    /* Create two columns that float next to eachother */
+    .column {
+        float: left;
+        width: 50%;
+        margin-top: 6px;
+        padding: 20px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+
+    }
+</style>

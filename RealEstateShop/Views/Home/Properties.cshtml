@@ -1,0 +1,53 @@
+﻿
+@model RealEstateShop.Views.Home.Properties
+
+<div class="Offers">
+
+    @foreach (var item in Model.getProperties())
+    {
+        <div class="Offers__item">
+            <img src="/images/@item.PhotoUrl" />
+            <div class="m-4">
+                <h2>@item.Name</h2>
+                <div>@item.Description</div>
+
+            </div>
+            <button>Купи $@item.Price</button>
+        </div>
+
+    }
+
+
+</div>
+
+
+
+
+
+
+
+<style>
+    .Offers {
+        display: flex;
+        flex-direction: column;
+        @*flex-wrap: wrap;*@
+    }
+
+    .Offers__item {
+        align-items: center;
+        background-color: #c89068;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        margin: 20px;
+        padding: 10px;
+        @*width: 150px;*@
+    }
+
+
+        .Offers__item > img {
+            margin: auto;
+            height: 500px;
+            width: 500px;
+        }
+</style>
