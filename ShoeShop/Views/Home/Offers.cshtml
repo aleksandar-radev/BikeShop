@@ -1,0 +1,56 @@
+﻿
+@model ShoeShop.Views.Home.Offers
+
+<div class="Offers">
+
+    @foreach (var item in Model.getShoes())
+    {
+        <div class="Offers__item">
+            <img src="/images/@item.PhotoUrl" />
+            <div>@item.Name</div>
+            <div>@item.Description</div>
+            <div>Размер: @item.Size</div>
+            @if (item.Stock > 50)
+            {
+                <button>Купи $@item.Price</button>
+            } else
+                {
+                <button disabled > Не са налични</button>
+                }
+        </div>
+
+    }
+
+
+</div>
+
+
+
+
+
+
+
+<style>
+    .Offers {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .Offers__item {
+        background-color: #5da79c;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        margin: 20px;
+        padding: 10px;
+        width: 150px;
+    }
+
+
+        .Offers__item > img {
+            margin: auto;
+            height: 100px;
+            width: 100px;
+        }
+</style>
