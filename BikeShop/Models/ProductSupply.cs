@@ -13,6 +13,6 @@ namespace BikeShop.Models
         public DateTime CreatedDate { get; set; }
         public int ProductId { get; set; }
         [DisplayName("Продукт")]
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
     }
 }

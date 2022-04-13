@@ -98,15 +98,19 @@ namespace BikeShop.Controllers
             {
                 return NotFound();
             }
-            product.PhotoUrl = PhotoUrl.FileName;
 
-            string uploads = Path.Combine(Directory.GetCurrentDirectory() , "wwwroot\\images");
-            if (PhotoUrl.Length > 0)
+            if (PhotoUrl != null)
             {
-                string filePath = Path.Combine(uploads, PhotoUrl.FileName);
-                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                product.PhotoUrl = PhotoUrl.FileName;
+
+                string uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
+                if (PhotoUrl.Length > 0)
                 {
-                    await PhotoUrl.CopyToAsync(fileStream);
+                    string filePath = Path.Combine(uploads, PhotoUrl.FileName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await PhotoUrl.CopyToAsync(fileStream);
+                    }
                 }
             }
 
