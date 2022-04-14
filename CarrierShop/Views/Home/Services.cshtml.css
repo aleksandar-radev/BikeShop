@@ -1,0 +1,36 @@
+﻿body {
+    background-color: aquamarine;
+}
+
+.Services__service {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    border-bottom: 2px dotted #72836d;
+    margin-bottom: 40px;
+    padding: 10px;
+}
+
+.Services__service > img {
+    width: 400px;
+    height: 400px;
+    grid-row: 1 / span 3;
+}
+
+.Services__service-title {
+    display: grid;
+    text-align: center;
+    align-items: end;
+    font: bold 2rem arial;
+}
+
+.Services__service-description {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+}
+
+.Services__service-button {
+    border-radius: 20px;
+}
