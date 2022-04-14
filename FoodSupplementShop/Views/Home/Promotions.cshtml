@@ -1,0 +1,31 @@
+﻿
+@model FoodSupplementShop.Views.Home.PromotionsViewModel
+
+<div class="Main">
+    @foreach (var product in Model.getProducts())
+    {
+        
+        <div class="Main__card">
+            <div class="Main__card-picture">
+                <img src="/images/@product.PhotoUrl" class="Main__card-picture-img" />
+            </div>
+            <div class="Main__card-title">@product.Name</div>
+            <div class="Main__card-info">
+                <div>Марка: @product.Brand.Name</div>
+                <div>Описание: @product.Description</div>
+                @{ var discount = product.Price * 0.5;}
+                <div>Цена: <del>@product.Price $</del> @discount $</div>
+            </div>
+            @if (product.Quantity > 5)
+            {
+                <button class="Main__card-add">Добави в количка</button>
+            }
+            else
+            {
+                <button class="Main__card-add" disabled>Не е налично</button>
+
+            }
+
+        </div>
+    }
+</div>
