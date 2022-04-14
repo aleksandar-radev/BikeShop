@@ -15,4 +15,6 @@ JewelleryShop -> https://docs.google.com/document/d/19l53txe425J7iU1F2ZC2uR8Yc9v
 
 
 Random -> https://docs.google.com/document/d/1T5zOPtCFkr2g-Vkgy4L44E6lR2ddUMCk/edit?usp=sharing&ouid=111431493227500443434&rtpof=true&sd=true
+https://drugi.dokumentite.com/art/kursov-proekt-po-elektronen-biznes/85893
 Use random to add w/e you want to the project
+
