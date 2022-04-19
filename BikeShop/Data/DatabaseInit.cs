@@ -91,7 +91,7 @@ namespace BikeShop.Data
             }
             if (_db.Product.Count() == 0)
             {
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     Random rand = new Random();
                     int size = rand.Next(0, 4);
@@ -100,7 +100,9 @@ namespace BikeShop.Data
                         Size = 14 + size * 2,
                         BrandId = rand.Next(1, brandsCount),
                         Price = rand.Next(500, 2000),
-                        CreatedDate = DateTime.Now
+                        CreatedDate = DateTime.Now,
+                        PhotoUrl = "b" + i + ".jpg"
+                        
                     };
 
                     _db.Add(product);
